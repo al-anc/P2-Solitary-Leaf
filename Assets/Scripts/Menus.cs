@@ -10,7 +10,7 @@ public class Menus : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Game Started!");
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Level");
         Time.timeScale = 1;
     }
 
