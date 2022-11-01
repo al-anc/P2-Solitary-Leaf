@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NewRandomNumber();
+        randomNumber = 0;
         rb = GetComponent<Rigidbody2D>();
         isAccelerating = false;
         isBraking = false;

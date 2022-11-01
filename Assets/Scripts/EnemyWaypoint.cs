@@ -24,6 +24,7 @@ public class EnemyWaypoint : MonoBehaviour
     private Transform rotat;
     private Rigidbody2D rb;
     private GameObject g;
+    public float rotSpeed = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +49,9 @@ public class EnemyWaypoint : MonoBehaviour
         float singleStep = Speed * Time.deltaTime;
 
         wp = PatrolPoints[currentWaypoint];
-        Vector2 targetDirection = wp.position - transform.position;
+        //Vector2 targetDirection = wp.position - transform.position;
+        Vector2 localTargetDirection = transform.InverseTransformDirection(wp.position);
+        var targetDirection = transform.TransformDirection(localTargetDirection);
         if (Vector3.Distance(transform.position, wp.position) < 0.01f)
         {
             transform.position = wp.position;
@@ -59,6 +62,8 @@ public class EnemyWaypoint : MonoBehaviour
             //  Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
             //Vector3 newPosition = new Vector3(moveHorizontal, 0.0f, moveVertical);
             //transform.LookAt(newPosition + transform.position);
+
+            transform.right = Vector3.Lerp(transform.right, targetDirection, RotationSpeed * Time.deltaTime);
             transform.position = Vector3.MoveTowards(transform.position, wp.position, Speed * Time.deltaTime);
 
         }
