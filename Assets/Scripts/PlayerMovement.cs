@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]float steeringPower = 2f;
     [SerializeField]bool isAccelerating, isBraking, isDrifting, countownStarted, hasDelivery;
     public bool gameOver;
+    public float finalDeliveries;
     [SerializeField]float steeringAmount, speed, direction;
     [SerializeField]float deliveries, deliveryTime;
     [SerializeField]Text timerText, deliveryText, accelerationText, hasDeliveryText;
@@ -32,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         isBraking = false;
         isDrifting = false;
         deliveries = 0;
-        deliveryTime = 60f;
+        deliveryTime = 10f;
         timerText.text = ($"Time Remaining for next delivery: {deliveryTime} seconds");
         deliveryText.text = ($"Deliveries Completed: {deliveries}");
         hasDeliveryText.text = ("Pickup the food");
@@ -121,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
             gameOverMenu.SetActive(true);
             speed = 0;
             accelerationPower = 0;
+            finalDeliveries = deliveries;
             Time.timeScale = 0;
         }
 
