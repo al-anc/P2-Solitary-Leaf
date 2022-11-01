@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]float accelerationPower = 15f;
     [SerializeField]float steeringPower = 2f;
-    [SerializeField]bool isAccelerating, isBraking, isDrifting, countownStarted, hasDelivery;
-    public bool gameOver;
+    [SerializeField]bool isAccelerating, isBraking, isDrifting, countownStarted;
+    public bool gameOver, hasDelivery;
     public float finalDeliveries;
     [SerializeField]float steeringAmount, speed, direction;
     [SerializeField]float deliveries, deliveryTime;
