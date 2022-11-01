@@ -5,21 +5,23 @@ using UnityEngine;
 public class TargetIndicator : MonoBehaviour
 {
     [SerializeField] Transform Target;
+    [SerializeField] Transform Pickup;
+    [SerializeField] Transform Dropoff;
     [SerializeField] GameObject Player;
     
     void Update()
     {
         if (!Player.GetComponent<PlayerMovement>().hasDelivery)
         {
-            //Target = GameObject.FindGameObjectWithTag("PickupPoint");
+            Target = Pickup;
         }
         else if(Player.GetComponent<PlayerMovement>().hasDelivery)
         {
-            //Target = GameObject.FindGameObjectWithTag("DropoffPoint");
+            Target = Dropoff;
         }
         else
         {
-            //Target = GameObject.FindGameObjectWithTag("PickupPoint");
+            Target = Target;
         }
         var direction = Target.position - transform.position;
 
