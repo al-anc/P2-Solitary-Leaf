@@ -9,11 +9,12 @@ public class PauseMenu : MonoBehaviour
     public GameObject Player;
     public GameObject pauseMenu;
     [SerializeField]GameObject ResumeButton;
-    [SerializeField]Text menuText;
+    [SerializeField]Text menuText, deliveriesText;
 
     void Start()
     {
         menuText.text = "Game is Paused";
+        deliveriesText.text = "";
     }
     
     void Update()
@@ -21,7 +22,15 @@ public class PauseMenu : MonoBehaviour
         if (Player.GetComponent<PlayerMovement>().gameOver == true)
         {
             ResumeButton.SetActive(false);
-            menuText.text = "Game Over";
+            if (Player.GetComponent<PlayerMovement>().finalDeliveries <= 3)
+            {
+                menuText.text = "Game Over! Get more than three deliveries next time peon!";
+            }
+            if (Player.GetComponent<PlayerMovement>().finalDeliveries >= 4)
+            {
+                menuText.text = "Game Over! Congrats on working above minimum wage!.";
+            }
+            deliveriesText.text = $"Deliveries: {Player.GetComponent<PlayerMovement>().finalDeliveries}";
         }
         else
         {
