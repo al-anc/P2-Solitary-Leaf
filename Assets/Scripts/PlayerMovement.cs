@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         isBraking = false;
         isDrifting = false;
         deliveries = 0;
-        deliveryTime = 45f;
+        deliveryTime = 60f;
         timerText.text = ($"Time Remaining for next delivery: {deliveryTime} seconds");
         deliveryText.text = ($"Deliveries Completed: {deliveries}");
         hasDeliveryText.text = ("Pickup the food");
@@ -81,8 +81,8 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        accelerationText.text = ($"{accelerationPower.ToString("F1")} mph");
-        if (Input.GetButton("Accelerate"))
+        accelerationText.text = ($"{Mathf.Abs(speed).ToString("F1")} mph");
+        if (Input.GetButton("Accelerate") || Input.GetAxisRaw("Accelerate") > 0)
         {
             isAccelerating = true;
             if (Input.GetButton("Brake"))
@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
         }
         AccelerationCheck();
 
-        if (Input.GetButton("Brake"))
+        if (Input.GetButton("Brake") || Input.GetAxisRaw("Brake") > 0)
         {
             isBraking = true;
             BrakeCheck();
@@ -231,16 +231,23 @@ public class PlayerMovement : MonoBehaviour
     {
         if (col.GetComponent<Collider2D>().tag == "PickupPoint" && deliveries <= 0)
         {
+            if (!hasDelivery)
+            {
+                PlaySound(baggrab);
+            }
             countownStarted = true;
             hasDelivery = true;
             hasDeliveryText.text = "You have a delivery!";
-            PlaySound(baggrab);
         }
         else if (col.GetComponent<Collider2D>().tag == "PickupPoint" && deliveries > 0)
         {
+            if (!hasDelivery)
+            {
+                PlaySound(baggrab);
+                deliveryTime += 2.5f;
+            }
             hasDelivery = true;
             hasDeliveryText.text = "You have a delivery!";
-            PlaySound(baggrab);
         }
 
         if (col.GetComponent<Collider2D>().tag == "DropoffPoint" && hasDelivery)
@@ -272,10 +279,10 @@ public class PlayerMovement : MonoBehaviour
 
     public virtual void NewRandomNumber()
 {
-    randomNumber = Random.Range(0, 2);
+    randomNumber = Random.Range(0, 5);
     if (randomNumber == lastNumber)
     {
-        randomNumber = Random.Range(0, 2);
+        randomNumber = Random.Range(0, 5);
     }
     lastNumber = randomNumber;
 }
