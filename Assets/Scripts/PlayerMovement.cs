@@ -23,6 +23,13 @@ public class PlayerMovement : MonoBehaviour
     public List<GameObject> DropoffPoints = new List<GameObject>();
     private GameObject currentPPoint;
     private GameObject currentDpoint;
+    AudioSource audioSource;
+    public AudioClip baggrab;
+    public AudioClip hurt;
+    public AudioClip accell;
+    public AudioClip dropoff;
+    public AudioClip accellextra;
+    public AudioClip drift;
     
     // Start is called before the first frame update
     void Start()
@@ -33,13 +40,14 @@ public class PlayerMovement : MonoBehaviour
         isBraking = false;
         isDrifting = false;
         deliveries = 0;
-        deliveryTime = 10f;
+        deliveryTime = 45f;
         timerText.text = ($"Time Remaining for next delivery: {deliveryTime} seconds");
         deliveryText.text = ($"Deliveries Completed: {deliveries}");
         hasDeliveryText.text = ("Pickup the food");
         gameOver = false;
         gameOverMenu.SetActive(false);
         Time.timeScale = 1;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -77,7 +85,30 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButton("Accelerate"))
         {
             isAccelerating = true;
+            if (Input.GetButton("Brake"))
+            {
+            }
+            else
+            {
+             if (audioSource.isPlaying)
+            {
+             
+            }
+            else
+            {
+            if (accelerationPower > 30)
+            {
+            PlaySound(accellextra);       
+            }
+            else
+            {
+            PlaySound(accell); 
+            }
+            }
+            }
         }
+        
+        
         else
         {
             isAccelerating = false;
@@ -93,6 +124,14 @@ public class PlayerMovement : MonoBehaviour
                 isDrifting = true;
                 isBraking = false;
                 DriftCheck();
+                 if (audioSource.isPlaying)
+            {
+             audioSource.Stop();
+            }
+            else
+            {
+                PlaySound(drift); 
+            }
             }
         }
         else
@@ -138,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 accelerationPower = 45;
                 return;
+                
             }
         }
         else if (isAccelerating && direction < 0)
@@ -147,11 +187,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 accelerationPower = 30;
                 return;
+                
             }
         }
         else if (!isAccelerating && accelerationPower > 15)
         {
             accelerationPower -= Time.deltaTime*5f;
+            audioSource.Pause ();
         }
         else
         {
@@ -192,11 +234,13 @@ public class PlayerMovement : MonoBehaviour
             countownStarted = true;
             hasDelivery = true;
             hasDeliveryText.text = "You have a delivery!";
+            PlaySound(baggrab);
         }
         else if (col.GetComponent<Collider2D>().tag == "PickupPoint" && deliveries > 0)
         {
             hasDelivery = true;
             hasDeliveryText.text = "You have a delivery!";
+            PlaySound(baggrab);
         }
 
         if (col.GetComponent<Collider2D>().tag == "DropoffPoint" && hasDelivery)
@@ -205,9 +249,15 @@ public class PlayerMovement : MonoBehaviour
             hasDeliveryText.text = "Pick up the next delivery!";
             deliveries++;
             UpdateDeliveries();
-            deliveryTime += 5;
+            deliveryTime += 10;
             NewRandomNumber();
+            PlaySound(dropoff);
         }
+    }
+     void OnCollisionEnter2D(Collision2D other)
+    {
+       
+        PlaySound(hurt);
     }
 
     void UpdateCountdown()
@@ -229,4 +279,8 @@ public class PlayerMovement : MonoBehaviour
     }
     lastNumber = randomNumber;
 }
+public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+    }
 }
