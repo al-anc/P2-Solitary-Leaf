@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         isBraking = false;
         isDrifting = false;
         deliveries = 0;
-        deliveryTime = 7f;
+        deliveryTime = 60f;
         timerText.text = ($"{deliveryTime}");
         deliveryText.text = ($"Delivered: {deliveries}");
         gameOver = false;
