@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5920099574472689297}
   - component: {fileID: 7316010351754856756}
   - component: {fileID: 4783746320072261118}
+  - component: {fileID: 2364092271657417373}
   m_Layer: 0
   m_Name: FoodTacoHell
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +85,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2364092271657417373
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6441198183406279723}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14996174, y: 0.12563047, z: 0.14996174}
+  m_Center: {x: 0.0000009295603, y: 0.06281578, z: -7.5340807e-16}
 --- !u!1 &7439194821380435809
 GameObject:
   m_ObjectHideFlags: 0

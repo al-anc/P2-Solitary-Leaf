@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1967172653308679046}
   - component: {fileID: 3234453757770898467}
   - component: {fileID: 794852106758285545}
+  - component: {fileID: -907521576690481047}
   m_Layer: 0
   m_Name: FoodPapaDons
   m_TagString: Untagged
@@ -84,6 +85,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-907521576690481047
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154924503791552828}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14996174, y: 0.12563047, z: 0.14996174}
+  m_Center: {x: 0.0000009295603, y: 0.06281578, z: -7.5340807e-16}
 --- !u!1 &2073472661792560692
 GameObject:
   m_ObjectHideFlags: 0
