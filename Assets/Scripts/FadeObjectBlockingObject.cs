@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FadeObjectBlockingObject : MonoBehaviour
 {
-    [SerializeField]
+       [SerializeField]
     private LayerMask LayerMask;
     [SerializeField]
     private Transform Player;
@@ -28,7 +28,7 @@ public class FadeObjectBlockingObject : MonoBehaviour
     private List<int> IndexesToClear = new List<int>();
     private Dictionary<FadingObject, Coroutine> RunningCoroutines = new Dictionary<FadingObject, Coroutine>();
 
-    private RaycastHit2D[] Hits = new RaycastHit2D[10];
+    private RaycastHit[] Hits = new RaycastHit[10];
 
     private void Start()
     {
@@ -41,17 +41,14 @@ public class FadeObjectBlockingObject : MonoBehaviour
 
         while (true)
         {
-            int hits = Physics2D.RaycastNonAlloc(Camera.transform.position, (Player.transform.position - Camera.transform.position).normalized, Hits, Vector2.Distance(Camera.transform.position, Player.transform.position), LayerMask);
-            
+            int hits = Physics.RaycastNonAlloc(Camera.transform.position, (Player.transform.position - Camera.transform.position).normalized, Hits, Vector3.Distance(Camera.transform.position, Player.transform.position), LayerMask);
             if (hits > 0)
             {
-                
                 for (int i = 0; i < hits; i++)
                 {
                     FadingObject fadingObject = GetFadingObjectFromHit(Hits[i]);
                     if (fadingObject != null && !ObjectsBlockingView.Contains(fadingObject))
                     {
-                       
                         if (RunningCoroutines.ContainsKey(fadingObject))
                         {
                             if (RunningCoroutines[fadingObject] != null) // may be null if it's already ended
@@ -211,14 +208,14 @@ public class FadeObjectBlockingObject : MonoBehaviour
         }
     }
 
-    private FadingObject GetFadingObjectFromHit(RaycastHit2D Hit)
+    private FadingObject GetFadingObjectFromHit(RaycastHit Hit)
     {
         return Hit.collider != null ? Hit.collider.GetComponent<FadingObject>() : null;
     }
 
     private void ClearHits()
     {
-        RaycastHit2D hit = new RaycastHit2D();
+        RaycastHit hit = new RaycastHit();
         for (int i = 0; i < Hits.Length; i++)
         {
             Hits[i] = hit;
