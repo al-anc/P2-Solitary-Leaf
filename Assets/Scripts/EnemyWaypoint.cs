@@ -49,10 +49,11 @@ public class EnemyWaypoint : MonoBehaviour
         float singleStep = Speed * Time.deltaTime;
 
         wp = PatrolPoints[currentWaypoint];
+        g = wp.gameObject;
         //Vector2 targetDirection = wp.position - transform.position;
         Vector2 localTargetDirection = transform.InverseTransformDirection(wp.position);
         var targetDirection = transform.TransformDirection(localTargetDirection);
-        transform.right = Vector3.Lerp(transform.right, targetDirection, RotationSpeed * Time.deltaTime);
+        //transform.right = Vector3.Lerp(transform.right, targetDirection, RotationSpeed * Time.deltaTime);
         if (Vector3.Distance(transform.position, wp.position) < 0.01f)
         {
             transform.position = wp.position;
@@ -65,6 +66,22 @@ public class EnemyWaypoint : MonoBehaviour
             //transform.LookAt(newPosition + transform.position);
             transform.position = Vector3.MoveTowards(transform.position, wp.position, Speed * Time.deltaTime);
 
+        }
+        if (g.gameObject.GetComponent<Waypointfacing>().faceDirection == Waypointfacing.FaceDirection.left)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, -270);
+        }
+                if (g.gameObject.GetComponent<Waypointfacing>().faceDirection == Waypointfacing.FaceDirection.down)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 180);
+        }
+                if (g.gameObject.GetComponent<Waypointfacing>().faceDirection == Waypointfacing.FaceDirection.right)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 270);
+        }
+                if (g.gameObject.GetComponent<Waypointfacing>().faceDirection == Waypointfacing.FaceDirection.up)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 360);
         }
 
             rotat = wp;
