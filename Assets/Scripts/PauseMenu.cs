@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        menuText.text = "Game is Paused";
+        menuText.text = "Paused";
         deliveriesText.text = "";
     }
     
@@ -22,11 +22,11 @@ public class PauseMenu : MonoBehaviour
         if (Player.GetComponent<PlayerMovement>().gameOver == true)
         {
             ResumeButton.SetActive(false);
-            if (Player.GetComponent<PlayerMovement>().finalDeliveries <= 3)
+            if (Player.GetComponent<PlayerMovement>().finalDeliveries <= 4)
             {
-                menuText.text = "Game Over! Get more than three deliveries next time peon!";
+                menuText.text = "Game Over! Get more than four deliveries next time!";
             }
-            if (Player.GetComponent<PlayerMovement>().finalDeliveries >= 4)
+            if (Player.GetComponent<PlayerMovement>().finalDeliveries >= 5)
             {
                 menuText.text = "Game Over! Congrats on working above minimum wage!.";
             }
@@ -35,7 +35,7 @@ public class PauseMenu : MonoBehaviour
         else
         {
             ResumeButton.SetActive(true);
-            menuText.text = "Game is Paused";
+            menuText.text = "Paused";
         }
     }
     

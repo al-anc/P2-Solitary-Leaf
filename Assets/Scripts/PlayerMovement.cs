@@ -14,7 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public float finalDeliveries;
     [SerializeField]float steeringAmount, speed, direction;
     [SerializeField]float deliveries, deliveryTime;
-    [SerializeField]Text timerText, deliveryText, accelerationText, hasDeliveryText;
+    [SerializeField]Text timerText, deliveryText, accelerationText;
+    [SerializeField]Image hasDeliveryPic;
+    [SerializeField]Image noDeliveryPic;
     [SerializeField]GameObject gameOverMenu;
 
     public int randomNumber;
@@ -41,13 +43,14 @@ public class PlayerMovement : MonoBehaviour
         isDrifting = false;
         deliveries = 0;
         deliveryTime = 60f;
-        timerText.text = ($"Time Remaining for next delivery: {deliveryTime} seconds");
-        deliveryText.text = ($"Deliveries Completed: {deliveries}");
-        hasDeliveryText.text = ("Pickup the food");
+        timerText.text = ($"{deliveryTime}");
+        deliveryText.text = ($"Delivered: {deliveries}");
         gameOver = false;
         gameOverMenu.SetActive(false);
         Time.timeScale = 1;
         audioSource = GetComponent<AudioSource>();
+        noDeliveryPic.enabled = true;
+        hasDeliveryPic.enabled = false;
     }
 
     // Update is called once per frame
@@ -81,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        accelerationText.text = ($"{Mathf.Abs(speed).ToString("F1")} mph");
+        accelerationText.text = ($"{Mathf.Abs(speed).ToString("F1")}");
         if (Input.GetButton("Accelerate") || Input.GetAxisRaw("Accelerate") > 0)
         {
             isAccelerating = true;
@@ -173,9 +176,9 @@ public class PlayerMovement : MonoBehaviour
         if (isAccelerating && direction > 0)
         {
             accelerationPower += Time.deltaTime*2f;
-            if (accelerationPower >= 45)
+            if (accelerationPower >= 60)
             {
-                accelerationPower = 45;
+                accelerationPower = 60;
                 return;
                 
             }
@@ -237,7 +240,8 @@ public class PlayerMovement : MonoBehaviour
             }
             countownStarted = true;
             hasDelivery = true;
-            hasDeliveryText.text = "You have a delivery!";
+            hasDeliveryPic.enabled = true;
+            noDeliveryPic.enabled = false;
         }
         else if (col.GetComponent<Collider2D>().tag == "PickupPoint" && deliveries > 0)
         {
@@ -247,13 +251,15 @@ public class PlayerMovement : MonoBehaviour
                 deliveryTime += 2.5f;
             }
             hasDelivery = true;
-            hasDeliveryText.text = "You have a delivery!";
+            hasDeliveryPic.enabled = true;
+            noDeliveryPic.enabled = false;
         }
 
         if (col.GetComponent<Collider2D>().tag == "DropoffPoint" && hasDelivery)
         {
             hasDelivery = false;
-            hasDeliveryText.text = "Pick up the next delivery!";
+            noDeliveryPic.enabled = true;
+            hasDeliveryPic.enabled = false;
             deliveries++;
             UpdateDeliveries();
             deliveryTime += 10;
@@ -269,12 +275,12 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdateCountdown()
     {
-        timerText.text = ($"Time remaining: {deliveryTime.ToString("F1")}.");
+        timerText.text = ($"{deliveryTime.ToString("F1")}");
     }
 
     void UpdateDeliveries()
     {
-        deliveryText.text = ($"Deliveries Completed: {deliveries.ToString("F1")}.");
+        deliveryText.text = ($"Delivered: {deliveries.ToString("F1")}");
     }
 
     public virtual void NewRandomNumber()
