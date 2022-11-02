@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PauseControls : MonoBehaviour
 {
-    public GameObject PauseMenu;
+    public GameObject PauseMenu, Player;
     public bool paused;
     
     void Update()
     {
-        if (Input.GetButtonDown("Pause") && paused == false)
+        if (!Player.GetComponent<PlayerMovement>().gameOver)
+        {
+            if (Input.GetButtonDown("Pause") && paused == false)
         {
             PauseMenu.SetActive(true);
             paused = true;
@@ -28,6 +30,7 @@ public class PauseControls : MonoBehaviour
             {
                 PauseMenu.SetActive(false);
             }
-        }     
+        }   
+        }  
     }
 }
