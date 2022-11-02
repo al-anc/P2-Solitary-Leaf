@@ -52,6 +52,7 @@ public class EnemyWaypoint : MonoBehaviour
         //Vector2 targetDirection = wp.position - transform.position;
         Vector2 localTargetDirection = transform.InverseTransformDirection(wp.position);
         var targetDirection = transform.TransformDirection(localTargetDirection);
+        transform.right = Vector3.Lerp(transform.right, targetDirection, RotationSpeed * Time.deltaTime);
         if (Vector3.Distance(transform.position, wp.position) < 0.01f)
         {
             transform.position = wp.position;
@@ -62,8 +63,6 @@ public class EnemyWaypoint : MonoBehaviour
             //  Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
             //Vector3 newPosition = new Vector3(moveHorizontal, 0.0f, moveVertical);
             //transform.LookAt(newPosition + transform.position);
-
-            transform.right = Vector3.Lerp(transform.right, targetDirection, RotationSpeed * Time.deltaTime);
             transform.position = Vector3.MoveTowards(transform.position, wp.position, Speed * Time.deltaTime);
 
         }
