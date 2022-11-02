@@ -10,12 +10,11 @@ public class PauseMenu : MonoBehaviour
     public GameObject Player;
     public GameObject pauseMenu;
     [SerializeField]GameObject pauseMenuFirstButton;
-    [SerializeField]Text menuText, deliveriesText;
+    [SerializeField]Text menuText;
 
     void Start()
     {
         menuText.text = "Paused";
-        deliveriesText.text = "";
         EventSystem.current.SetSelectedGameObject(null);
 
         EventSystem.current.SetSelectedGameObject(pauseMenuFirstButton);
