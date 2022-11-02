@@ -68,6 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4923902091539434051}
   - component: {fileID: 8357252952117593574}
+  - component: {fileID: 8073376874510958196}
   - component: {fileID: 6061310744096223532}
   m_Layer: 0
   m_Name: RBBuilding
@@ -100,6 +101,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5701247554955677945}
   m_Mesh: {fileID: 4068373912626513877, guid: 44685e7a5b315054e96b6ee6e3123cc8, type: 3}
+--- !u!114 &8073376874510958196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5701247554955677945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e60031de7a78aca45a21a6a86c46cc7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Renderers: []
+  Position: {x: 0, y: 0, z: 0}
+  Materials: []
+  InitialAlpha: 0
 --- !u!23 &6061310744096223532
 MeshRenderer:
   m_ObjectHideFlags: 0
